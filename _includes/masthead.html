@@ -1,27 +1,36 @@
-{% include base_path %}
+{% if ui_locale == "zh-CN" %}
+  {% assign nav = site.data.navigation-zh.main %}
+  {% assign home_url = "/zh/" %}
+  {% assign home_title = "黄文华博士的个人主页" %}
+  {% assign lang_switch_url = page.url | replace_first: "/zh", "" %}
+  {% if lang_switch_url == "" %}{% assign lang_switch_url = "/" %}{% endif %}
+  {% assign lang_switch_label = "EN" %}
+{% else %}
+  {% assign nav = site.data.navigation.main %}
+  {% assign home_url = "/" %}
+  {% assign home_title = site.title %}
+  {% assign lang_switch_url = "/zh" | append: page.url %}
+  {% assign lang_switch_label = "中文" %}
+{% endif %}
 <div class="masthead">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
+      <div class="masthead__title-row">
+        <a href="{{ home_url }}" class="masthead__menu-item masthead__menu-item--lg site-title">{{ home_title }}</a>
+        <a href="{{ lang_switch_url }}" class="masthead__menu-item masthead__lang-switch">{{ lang_switch_label }}</a>
+      </div>
       <nav id="site-nav" class="greedy-nav">
-        <button><span class="navicon"></span></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg persist {% if page.url == '/' or page.url == '/index.html' %}selected{% endif %}">
-            <a href="{{ base_path }}/">{{ site.title }}</a>
-          </li>
-          {% for link in site.data.navigation.main %}
-            {% if link.url contains 'http' %}
-              {% assign domain = '' %}
-            {% else %}
-              {% assign domain = base_path %}
-            {% endif %}
-            <li class="masthead__menu-item {% if page.url contains link.url and link.url != '/' %}selected{% endif %}">
-              <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+          {% for item in nav %}
+            <li class="masthead__menu-item">
+              <a href="{{ item.url }}">{{ item.title }}</a>
             </li>
           {% endfor %}
           <li id="theme-toggle" class="masthead__menu-item persist tail">
-            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+            <a><i id="theme-icon" class="fa-solid fa-sun"></i></a>
           </li>
         </ul>
+        <button aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
         <ul class="hidden-links hidden"></ul>
       </nav>
     </div>

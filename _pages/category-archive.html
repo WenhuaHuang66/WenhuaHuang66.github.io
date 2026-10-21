@@ -4,6 +4,8 @@ permalink: /categories/
 title: "Posts by Category"
 author_profile: true
 ---
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}{% assign ui_locale = "zh-CN" %}{% endif %}
 
 {% include base_path %}
 {% include group-by-array collection=site.posts field="categories" %}

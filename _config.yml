@@ -3,148 +3,66 @@
 # This config file is meant for settings that affect your entire site, values
 # which you are expected to set up once and rarely need to edit after that.
 # For technical reasons, this file is *NOT* reloaded automatically when you use
-# `jekyll serve -l -H localhost`. If you change this file, please restart the 
-# server process.
+# `jekyll serve`. If you change this file, please restart the server process.
 
 # Basic Site Settings
 locale                   : "en-US"
-site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
-title                    : "Your Name / Site Title"
+title                    : "The Personal Website of Dr. Wenhua Huang"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "Your Name's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
-url                      : https://academicpages.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
-                                                           # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
+subtitle                 : # site tagline that appears below your name in sidebar
+name                     : "Wenhua Huang"
+description              : "Understand and enjoy chemistry"
+url                      : https://WenhuaHuang66.github.io # the base hostname & protocol for your site e.g. "https://[username].github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
-
-# Site Author - The following control what appear as part of the author content on the side bar.
-#               If a field is blank the icon and link will not appear, otherwise it will be shown.
-#               Additional customization can be done by editing /_includes/author-profile.html
-author:
-  # Biographic information
-  avatar           : "profile.png"
-  name             : "Your Sidebar Name"
-  pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
-  employer         : "Red Brick University"
-  uri              : # URL
-  email            : "none@example.org" 
-
-  # Academic websites
-  academia         : # URL
-  arxiv            : # URL - Update with the correct link to your profile
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-  inspire-hep      : # URL
-  impactstory      : # URL
-  orcid            : "https://orcid.org/yourorcidurl"
-  semantic         : # URL
-  ssrn             : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  researchgate     : # URL
-  scopus           : # URL
-  zotero           : # URL
-
-
-  # Repositories and software development
-  bitbucket        : # Username - Update with your username on the site
-  codepen          : # Username
-  dribbble         : # Username
-  github           : "academicpages"
-  kaggle           : # Username  
-  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
-
-  # Social media
-  artstation       : # Username
-  bluesky          : "bsky.app" # Replace this with you Bluesky username
-  facebook         : # Username
-  flickr           : # Username
-  foursquare       : # Username
-  goodreads        : # Username
-  google_plus      : # Username
-  keybase          : # Username
-  instagram        : # Username
-  lastfm           : # Username
-  linkedin         : # Username
-  mastodon         : # URL
-  medium           : # URL
-  pinterest        : # Username
-  soundcloud       : # Username
-  steam            : # Username
-  telegram         : # URL
-  tumblr           : # Username
-  twitter          : # Username for X / Twitter
-  vine             : # Username
-  weibo            : # Username
-  wikipedia        : # Username
-  xing             : # Username
-  youtube          : # Username
-  zhihu            : # Username
-
-# Publication Category - The following the list of publication categories and their headings
-publication_category:
-  books:
-    title: 'Books'
-  manuscripts:
-    title: 'Journal Articles'    
-  conferences:
-    title: 'Conference Papers'
-
-# Site Settings
-teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews
+repository               : "WenhuaHuang66/WenhuaHuang66.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+teaser                   : # path of fallback teaser image, e.g. "/images/500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
 future                   : true
 read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
-talkmap_link             : false      #change to true to add link to talkmap on talks page
+talkmap_link             : false #change to true to add link to talkmap on talks page
 comments:
-  provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  provider               : # false (default), "disqus", "discourse", "facebook", "staticman", "giscus", "utterances", "custom"
   disqus:
-    shortname            :
+    shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
+    # https://developers.facebook.com/docs/plugins/comments
     appid                :
     num_posts            : # 5 (default)
     colorscheme          : # "light" (default), "dark"
-staticman:
-  allowedFields          : ['name', 'email', 'url', 'message']
-  branch                 : "gh-pages" # "master", "gh-pages"
-  commitMessage          : "New comment."
-  filename               : comment-{@timestamp}
-  format                 : "yml"
-  moderation             : true
-  path                   : "_data/comments/{options.slug}"
-  requiredFields         : ['name', 'email', 'message']
-  transforms:
-    email                : "md5"
-  generatedFields:
-    date:
-      type               : "date"
-      options:
-        format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
+  utterances:
+    theme                : # "github-light" (default), "github-dark"
+    issue_term           : # "pathname" (default)
+  staticman:
+    branch               : # "master"
+    endpoint             : # "https://{your Staticman v3 API}/v3/entry/github/"
+  giscus:                          # https://giscus.app/
+    repo_id              : # Shown during giscus setup at https://giscus.app
+    category_name        : # Full text name of the category
+    category_id          : # Shown during giscus setup at https://giscus.app
+    discussion_term      : # "pathname" (default), "url", "title", "og:title"
+    reactions_enabled    : # '1' for enabled (default), '0' for disabled
+    theme                : # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
 atom_feed:
-  hide                   : false     # change to true to hide the RSS feed in the footer
   path                   : # blank (default) uses feed.xml
-
+  hide                   : true # change to true to hide the RSS feed button in the footer
 
 # SEO Related
 google_site_verification :
 bing_site_verification   :
-alexa_site_verification  :
+baidu_site_verification  :
 yandex_site_verification :
-
 
 # Social Sharing
 twitter:
-  username               : &twitter
+  username               :
 facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  # Social media default site image
-og_description           :  # Social media default site image description
+og_image                 : # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
@@ -152,12 +70,11 @@ social:
   name                   : # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
 
-
 # Analytics
 analytics:
-  provider               :  "false" # false (default), "google", "google-universal", "google-analytics-4", "custom"
+  provider               : "google-universal" # false (default), "google", "google-universal", "google-gtag", "custom"
   google:
-    tracking_id          :
+    tracking_id          : "G-XXXXXXXXXX"
 
 
 # Reading Files
@@ -170,24 +87,21 @@ exclude:
   - "*.sublime-workspace"
   - .asset-cache
   - .bundle
-  - .github
   - .jekyll-assets-cache
   - .sass-cache
-  - assets/js/_main.js
   - assets/js/plugins
+  - assets/js/_main.js
   - assets/js/vendor
-  - CHANGELOG
   - Capfile
+  - CHANGELOG
   - config
-  - Dockerfile
   - Gemfile
   - Gruntfile.js
   - gulpfile.js
   - LICENSE
   - local
-  - log
   - node_modules
-  - package.json*
+  - package.json
   - Rakefile
   - README
   - tmp
@@ -211,15 +125,11 @@ incremental: false
 kramdown:
   input: GFM
   hard_wrap: false
-  auto_ids: true
   footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-  enable_coderay: false
+  show_warnings: true
 
 
-# These settings control the types of collections used by the template
+# Collections
 collections:
   teaching:
     output: true
@@ -233,9 +143,18 @@ collections:
   talks:
     output: true
     permalink: /:collection/:path/
+  posts_zh:
+    output: true
+    permalink: /zh/:categories/:title/
+  talks_zh:
+    output: true
+    permalink: /zh/popular-science/:path/
+  teaching_zh:
+    output: true
+    permalink: /zh/science-fiction/:path/
 
 
-# These settings control how pages and collections are included in the site
+# Defaults
 defaults:
   # _posts
   - scope:
@@ -245,43 +164,18 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: true
+      comments: false
       share: true
-      related: true
+      related: false
+
   # _pages
   - scope:
-      path: ""
+      path: "_pages"
       type: pages
     values:
       layout: single
       author_profile: true
-  # _teaching
-  - scope:
-      path: ""
-      type: teaching
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comments: true
-  # _publications
-  - scope:
-      path: ""
-      type: publications
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comments: true
-  # _portfolio
-  - scope:
-      path: ""
-      type: portfolio
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
+
   # _talks
   - scope:
       path: ""
@@ -290,6 +184,68 @@ defaults:
       layout: talk
       author_profile: true
       share: true
+
+  # _teaching
+  - scope:
+      path: ""
+      type: teaching
+    values:
+      layout: single
+      author_profile: true
+      share: true
+
+  # _publications
+  - scope:
+      path: ""
+      type: publications
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: false
+      show_date: true
+
+  # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: true
+      share: true
+
+  # _posts_zh  (Chinese blog posts)
+  - scope:
+      path: ""
+      type: posts_zh
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: false
+      locale: zh-CN
+
+  # _talks_zh  (Chinese popular science)
+  - scope:
+      path: ""
+      type: talks_zh
+    values:
+      layout: talk
+      author_profile: true
+      share: true
+      locale: zh-CN
+
+  # _teaching_zh  (Chinese science fiction)
+  - scope:
+      path: ""
+      type: teaching_zh
+    values:
+      layout: talk
+      author_profile: true
+      share: true
+      locale: zh-CN
 
 
 # Sass/SCSS
@@ -308,20 +264,11 @@ timezone: Etc/UTC # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 # Plugins
 plugins:
   - jekyll-feed
-  - jekyll-gist
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-redirect-from
-  - jemoji
 
-# Mimic GitHub Pages with --safe
+
+# Mimic GitHub Pages with --> Safe: true, which prevents the use of plugins
 whitelist:
   - jekyll-feed
-  - jekyll-gist
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-redirect-from
-  - jemoji
 
 
 # Archives
@@ -331,9 +278,18 @@ whitelist:
 #  Path (examples)
 #  - Archive page should exist at path when using Liquid method or you can
 #    expect broken links (especially with breadcrumbs enabled)
-#  - <base_path>/tags/my-awesome-tag/index.html ~> path: /tags/
-#  - <base_path/categories/my-awesome-category/index.html ~> path: /categories/
-#  - <base_path/my-awesome-category/index.html ~> path: /
+#  - <site.baseurl>/:collection/:path/ (default)
+#  - <site.baseurl>/:collection/:path/:title/ (jekyll-archives)
+#  - <site.baseurl>/:collection/:path/:year/ (jekyll-archives)
+#  - <site.baseurl>/:collection/:path/:year/:month/ (jekyll-archives)
+#  - <site.baseurl>/:collection/:path/:year/:month/:day/ (jekyll-archives)
+jekyll-archives:
+  enabled:
+  layout:
+  permalinks:
+
+
+# Category and Tag Archives
 category_archive:
   type: liquid
   path: /categories/
@@ -359,3 +315,80 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+
+# Site Author - The following control what appear as part of the author content on the side bar.
+#               If a field is blank the icon and link will not appear, otherwise it will be shown.
+#               Additional customization can be done by editing /_includes/author-profile.html
+author:
+  # Biographic information
+  avatar           : "profile.png"
+  name             : "Dr. Wenhua Huang"
+  pronouns         : # example: "she/her"
+  bio              : "Associate Professor of Chemistry at Department of Chemistry, Tianjin University"
+  location         : "Tianjin, P. R. China"
+  employer         : # Department removed (redundant with bio)
+  uri              : # URL
+  email            : "huangwenhua66@icloud.com"
+
+  # Academic websites
+  academia         : # URL
+  arxiv            : # URL - Update with the correct link to your profile
+  googlescholar    : # URL
+  inspire-hep      : # URL
+  impactstory      : # URL
+  orcid            : "https://orcid.org/0000-0003-3066-7917"
+  semantic         : # URL
+  ssrn             : # URL
+  pubmed           : # URL
+  researchgate     : # URL
+  scopus           : # URL
+  zotero           : # URL
+
+
+  # Repositories and software development
+  bitbucket        : # Username
+  codepen          : # Username
+  dribbble         : # Username
+  github           : "WenhuaHuang66"
+  kaggle           : # Username
+  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")
+
+  # Social media
+  artstation       : # Username
+  bluesky          : # Username
+  facebook         : # Username
+  flickr           : # Username
+  foursquare       : # Username
+  goodreads        : # Username
+  google_plus      : # Username
+  keybase          : # Username
+  instagram        : # Username
+  lastfm           : # Username
+  linkedin         : # Username
+  mastodon         : # URL
+  medium           : # URL
+  pinterest        : # Username
+  soundcloud       : # Username
+  steam            : # Username
+  telegram         : # URL
+  tumblr           : # Username
+  twitter          : # Username for X / Twitter
+  vine             : # Username
+  weibo            : # Username
+  wikipedia        : # Username
+  xing             : # Username
+  youtube          : # URL
+  zhihu            : # URL
+
+
+# Site Footer
+footer:
+  # Link to the Creative Commons license used for the theme
+  # - https://creativecommons.org/licenses/
+  copyright:
+    show: true
+
+
+# Theme
+site_theme             : "air" # available themes: air, contrast, dark, default, dirt, mint, sunrise

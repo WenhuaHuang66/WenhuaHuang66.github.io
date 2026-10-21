@@ -1,11 +1,11 @@
 ---
 layout: archive
-permalink: /year-archive/
-title: "Blog posts"
+permalink: /blogs/
+title: "Blogs"
 author_profile: true
-redirect_from:
-  - /wordpress/blog-posts/
 ---
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}{% assign ui_locale = "zh-CN" %}{% endif %}
 
 {% include base_path %}
 {% capture written_year %}'None'{% endcapture %}

@@ -2,6 +2,11 @@
 layout: default
 ---
 
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}
+  {% assign ui_locale = "zh-CN" %}
+{% endif %}
+
 {% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
   {% include page__hero.html %}
 {% endif %}

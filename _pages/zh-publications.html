@@ -1,0 +1,31 @@
+---
+layout: archive
+title: "论文"
+permalink: /zh/publications/
+author_profile: true
+locale: zh-CN
+---
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}{% assign ui_locale = "zh-CN" %}{% endif %}
+
+{% include base_path %}
+
+{% if site.publication_category %}
+  {% for category in site.publication_category  %}
+    {% assign title_shown = false %}
+    {% for post in site.publications reversed %}
+      {% if post.category != category[0] %}
+        {% continue %}
+      {% endif %}
+      {% unless title_shown %}
+        <h2>期刊论文</h2><hr />
+        {% assign title_shown = true %}
+      {% endunless %}
+      {% include archive-single.html %}
+    {% endfor %}
+  {% endfor %}
+{% else %}
+  {% for post in site.publications reversed %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}

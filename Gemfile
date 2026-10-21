@@ -12,3 +12,6 @@ end
 
 gem 'kramdown'
 gem 'kramdown-parser-gfm'
+
+# Windows support: Windows has no system timezone database, Jekyll needs this to start
+gem 'tzinfo-data'

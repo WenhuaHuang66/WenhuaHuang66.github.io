@@ -1,0 +1,24 @@
+# 中文导航（Chinese navigation for the /zh/ mirror site）
+# 顺序与英文版保持一致：首页、博客、科普、科幻小说、程序、论文、关于
+
+main:
+  - title: "首页"
+    url: /zh/
+
+  - title: "博客"
+    url: /zh/blogs/
+
+  - title: "科普"
+    url: /zh/popular-science/
+
+  - title: "科幻小说"
+    url: /zh/science-fiction/
+
+  - title: "程序"
+    url: /zh/programs/
+
+  - title: "论文"
+    url: /zh/publications/
+
+  - title: "关于"
+    url: /zh/about/

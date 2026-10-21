@@ -1,0 +1,15 @@
+---
+layout: archive
+title: "科普"
+permalink: /zh/popular-science/
+author_profile: true
+locale: zh-CN
+---
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}{% assign ui_locale = "zh-CN" %}{% endif %}
+
+{% include base_path %}
+
+{% for post in site.talks_zh reversed %}
+  {% include archive-single.html %}
+{% endfor %}
