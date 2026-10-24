@@ -1,0 +1,19 @@
+{%- comment -%}
+  板块预览列表：显示最新 5 条，超过 5 条时出现“更多”按钮。
+  参数：
+    collection  集合名称（字符串），如 "posts"、"posts_zh"、"talks"、"talks_zh"、
+                "teaching"、"portfolio"、"publications"
+    more_url    全部列表页地址，如 "/blogs/all/"
+    more_label  按钮文字，如 "More" 或 "更多"
+{%- endcomment -%}
+{% assign section_items = site[include.collection] | sort: 'date' | reverse %}
+
+{% for post in section_items limit: 5 %}
+  {% include archive-single.html %}
+{% endfor %}
+
+{% if section_items.size > 5 %}
+<div style="margin-top: 1.75em;">
+  <a class="btn" href="{{ include.more_url | relative_url }}">{{ include.more_label }}</a>
+</div>
+{% endif %}

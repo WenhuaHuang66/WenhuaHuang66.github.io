@@ -1,0 +1,15 @@
+---
+layout: archive
+title: "全部程序"
+permalink: /zh/programs/all/
+author_profile: true
+locale: zh-CN
+---
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}{% assign ui_locale = "zh-CN" %}{% endif %}
+
+{% include base_path %}
+
+{% for post in site.portfolio %}
+  {% include archive-single.html %}
+{% endfor %}

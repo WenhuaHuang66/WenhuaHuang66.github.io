@@ -42,7 +42,7 @@ tags: [标签一, 标签二]
 ### 科普 / 科幻小说 / 程序
 
 - 科普：英文 → `_talks/`，中文 → `_talks_zh/`
-- 科幻小说：英文 → `_teaching/`，中文 → `_teaching_zh/`
+- 科幻小说：英文 → `_teaching/`；中文小说在 `_data/novels_zh.yml` 中以列表形式维护（每部小说两行：`title` + 番茄小说 `url`，最新的排在前面），中文板块页自动显示最新 5 部，超过 5 部时出现“更多”按钮指向 `/zh/science-fiction/all/`
 - 程序 → `_portfolio/`
 
 frontmatter 需包含 `collection` 与 `permalink`，直接复制同类现有文件最稳妥。
@@ -55,7 +55,7 @@ frontmatter 需包含 `collection` 与 `permalink`，直接复制同类现有文
 
 - **首页化合物结构搜索**：支持中英文化合物名。中文名优先命中内置专业词典（73 个常见化合物）；未命中则调用 MyMemory 翻译接口转换为英文名；再经 OPSIN（EBI）解析结构标识，最终从 PubChem 取得结构式图片。全部失败时提示“没搜到此化合物结构式。”。纯前端实现，无需后端服务。
 - **数学公式**：采用 MathJax，正文可用 `$...$`（行内）或 `$$...$$`（独立成行）。分隔符配置见 `_includes/footer/custom.html`。
-- **中文界面文案**：`_data/ui-text.yml` 内置中文词条，中文页通过 `locale: zh-CN` 自动套用。
+- **板块列表规则（全站统一）**：点击导航进入任一板块（博客、科普、科幻小说、程序、论文，中英文相同）只显示**最新 5 条**，不足 5 条时显示实际条数；超过 5 条时页面底部出现“更多 / More”按钮，指向该板块的全部列表页（如 `/publications/all/`、`/zh/blogs/all/`）。预览逻辑集中在 `_includes/section-list.html`，全部列表页保留原有的按年份（博客）或按类别（论文）分组。
 
 ## 本地预览（Windows）
 

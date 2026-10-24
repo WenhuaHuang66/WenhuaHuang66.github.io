@@ -9,6 +9,4 @@ author_profile: true
 
 {% include base_path %}
 
-{% for post in site.talks reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+{% include section-list.html collection="talks" more_url="/popular-science/all/" more_label="More" %}

@@ -10,6 +10,4 @@ locale: zh-CN
 
 {% include base_path %}
 
-{% for post in site.talks_zh reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+{% include section-list.html collection="talks_zh" more_url="/zh/popular-science/all/" more_label="更多" %}

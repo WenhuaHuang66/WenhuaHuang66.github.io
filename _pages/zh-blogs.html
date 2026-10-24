@@ -9,12 +9,5 @@ locale: zh-CN
 {% if page.url contains "/zh/" or page.url == "/zh/" %}{% assign ui_locale = "zh-CN" %}{% endif %}
 
 {% include base_path %}
-{% capture written_year %}'None'{% endcapture %}
-{% for post in site.posts_zh %}
-  {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-  {% if year != written_year %}
-    <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
-    {% capture written_year %}{{ year }}{% endcapture %}
-  {% endif %}
-  {% include archive-single.html %}
-{% endfor %}
+
+{% include section-list.html collection="posts_zh" more_url="/zh/blogs/all/" more_label="更多" %}

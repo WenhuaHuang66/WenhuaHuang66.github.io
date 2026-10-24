@@ -10,6 +10,4 @@ locale: zh-CN
 
 {% include base_path %}
 
-{% for post in site.portfolio %}
-  {% include archive-single.html %}
-{% endfor %}
+{% include section-list.html collection="portfolio" more_url="/zh/programs/all/" more_label="更多" %}
