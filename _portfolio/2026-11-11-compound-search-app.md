@@ -14,6 +14,20 @@ tags:
 
 > 💡 **Try before you buy:** You can test this tool live on [my homepage](/) right now. If you like it, purchase below to download the standalone PWA package, host it on your own site, and install it as a mobile app.
 
+<div style="background:#FFF8F0;border:2px solid #E67E22;border-radius:12px;padding:1.5em 2em;margin:1.5em 0;text-align:center;">
+  <div style="font-size:0.85em;color:#888;margin-bottom:0.3em;">Instant Download · Lifetime Updates</div>
+  <div style="font-size:2.2em;font-weight:800;color:#E67E22;">$5.99 <span style="font-size:0.5em;color:#666;font-weight:500;">USD · one-time</span></div>
+  <a href="https://pancake.waffo.ai/store/%E7%85%8C%E6%96%87%E9%AA%8E%E7%BD%91%E7%BB%9C%E7%A7%91%E6%8A%80%E5%B7%A5%E4%BD%9C%E5%AE%A4-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
+     style="display:inline-block;margin-top:0.8em;padding:0.9em 2.2em;background:#E67E22;color:#fff;text-decoration:none;border-radius:8px;font-size:1.05em;font-weight:700;box-shadow:0 2px 8px rgba(230,126,34,0.4);">
+    🛒 Buy Now
+  </a>
+  <div style="color:#888;font-size:0.8em;margin-top:0.6em;">
+    Secure checkout by Waffo Pancake ·
+    <a href="/terms/" style="color:#0066cc;">Terms</a> ·
+    <a href="/privacy/" style="color:#0066cc;">Privacy</a>
+  </div>
+</div>
+
 ### Features
 
 - ✅ **Chinese + English queries** — Input Chinese names (苯, 甲苯, 阿司匹林) or English names (benzene, aspirin)
@@ -24,24 +38,10 @@ tags:
 
 ---
 
-## Buy Now
-
-**One-time payment: $5.99 USD**
-
-<div style="text-align:center;margin:2em 0;">
-  <a href="https://pancake.waffo.ai/store/%E7%85%8C%E6%96%87%E9%AA%8E%E7%BD%91%E7%BB%9C%E7%A7%91%E6%8A%80%E5%B7%A5%E4%BD%9C%E5%AE%A4-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
-     style="display:inline-block;padding:1em 2.5em;background:#E67E22;color:#fff;text-decoration:none;border-radius:8px;font-size:1.1em;font-weight:700;box-shadow:0 2px 8px rgba(230,126,34,0.4);transition:transform 0.15s;"
-     onmouseover="this.style.transform='translateY(-2px)'"
-     onmouseout="this.style.transform='translateY(0)'">
-    🛒 Buy Now — $5.99 USD
-  </a>
-  <p style="color:#888;font-size:0.85em;margin-top:0.8em;">Secure checkout by Waffo Pancake · Credit card & supported</p>
-</div>
-
 <details style="margin-top:1em;">
 <summary style="cursor:pointer;color:#0066cc;font-weight:500;">Secure Payment · License · Support</summary>
 
-**Accepted:** Credit cards (Visa, Mastercard, Amex) · Apple Pay · Google Pay
+**Accepted:** Credit cards (Visa, Mastercard, Amex) · Apple Pay · Google Pay · WeChat Pay · Alipay
 
 **Secure Payment**
 - Payment is processed by **Waffo Pancake** (Merchant of Record) — PCI-compliant, we never see your card number
@@ -53,6 +53,9 @@ tags:
 - ✔ Free lifetime updates
 - ✔ Permission to deploy on **one** of your own websites
 - ✔ Commercial deployment license available separately (email for quote)
+
+**Commercial Licensing**
+- For client projects, SaaS, or multi-site deployment, contact [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) for a commercial quote
 
 **Support**
 - Email: [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) — please include your order ID

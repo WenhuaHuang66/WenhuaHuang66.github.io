@@ -15,6 +15,20 @@ tags:
 
 > 💡 **先试后买**：你可以直接在[我的首页](/zh/)先试用这个搜索工具。好用的话，再通过下面的方式购买下载，安装到手机上使用。
 
+<div style="background:#FFF8F0;border:2px solid #E67E22;border-radius:12px;padding:1.5em 2em;margin:1.5em 0;text-align:center;">
+  <div style="font-size:0.85em;color:#888;margin-bottom:0.3em;">购买即下 · 终身免费更新</div>
+  <div style="font-size:2.2em;font-weight:800;color:#E67E22;">$5.99 <span style="font-size:0.5em;color:#666;font-weight:500;">美元 · 一次性买断</span></div>
+  <a href="https://pancake.waffo.ai/store/%E7%85%8C%E6%96%87%E9%AA%8E%E7%BD%91%E7%BB%9C%E7%A7%91%E6%8A%80%E5%B7%A5%E4%BD%9C%E5%AE%A4-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
+     style="display:inline-block;margin-top:0.8em;padding:0.9em 2.2em;background:#E67E22;color:#fff;text-decoration:none;border-radius:8px;font-size:1.05em;font-weight:700;box-shadow:0 2px 8px rgba(230,126,34,0.4);">
+    🛒 立即购买
+  </a>
+  <div style="color:#888;font-size:0.8em;margin-top:0.6em;">
+    安全结账由 Waffo Pancake 处理 ·
+    <a href="/terms/" style="color:#0066cc;">服务条款</a> ·
+    <a href="/privacy/" style="color:#0066cc;">隐私政策</a>
+  </div>
+</div>
+
 ### 功能特性
 
 - ✅ **中英文双语查询** — 输入中文名（苯、甲苯、阿司匹林）或英文名（benzene, aspirin）
@@ -24,20 +38,6 @@ tags:
 - ✅ **零外部依赖** — 纯 HTML + CSS + 内联 JS，无任何外部框架
 
 ---
-
-## 立即购买
-
-**一次性付款：$5.99 美元**
-
-<div style="text-align:center;margin:2em 0;">
-  <a href="https://pancake.waffo.ai/store/%E7%85%8C%E6%96%87%E9%AA%8E%E7%BD%91%E7%BB%9C%E7%A7%91%E6%8A%80%E5%B7%A5%E4%BD%9C%E5%AE%A4-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
-     style="display:inline-block;padding:1em 2.5em;background:#E67E22;color:#fff;text-decoration:none;border-radius:8px;font-size:1.1em;font-weight:700;box-shadow:0 2px 8px rgba(230,126,34,0.4);transition:transform 0.15s;"
-     onmouseover="this.style.transform='translateY(-2px)'"
-     onmouseout="this.style.transform='translateY(0)'">
-    🛒 立即购买 — $5.99
-  </a>
-  <p style="color:#888;font-size:0.85em;margin-top:0.8em;">安全结账由 Waffo Pancake 处理 · 支持信用卡/微信/支付宝</p>
-</div>
 
 <details style="margin-top:1em;">
 <summary style="cursor:pointer;color:#0066cc;font-weight:500;">安全支付 · 授权许可 · 技术支持</summary>
@@ -54,6 +54,9 @@ tags:
 - ✔ 终身免费更新
 - ✔ 允许部署在**一个**您自己的网站上
 - ✔ 商业部署许可可单独洽谈（邮件咨询报价）
+
+**商业授权**
+- 如需部署在客户项目、SaaS 产品或多网站，请发邮件至 [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) 咨询报价
 
 **技术支持**
 - 邮件：[huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) — 请附上您的订单编号
