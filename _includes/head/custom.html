@@ -17,6 +17,22 @@
 <link rel="icon" type="image/png" href="{{ base_path }}/images/favicon-192x192.png" sizes="192x192"/>
 <link rel="manifest" href="{{ base_path }}/images/manifest.json"/>
 <link rel="icon" href="/images/favicon.ico"/>
-<meta name="theme-color" content="var(--global-bg-color)"/>
+
+<!-- PWA: literal hex, NOT CSS variable (browsers don't resolve var() in meta tags) -->
+<meta name="theme-color" content="#0066cc"/>
+
+<!-- iOS PWA: enable standalone mode, set title & status bar style -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Wenhua Huang"/>
 
 <!-- end custom head snippets -->
+
+<!-- Register Service Worker (for PWA install prompt on Android) -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').catch(function() {});
+    });
+  }
+</script>

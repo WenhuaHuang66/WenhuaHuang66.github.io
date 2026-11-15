@@ -23,7 +23,14 @@
         <ul class="visible-links">
           {% for item in nav %}
             <li class="masthead__menu-item">
-              <a href="{{ item.url }}">{{ item.title }}</a>
+              {% if item.url == "/" %}
+                {% assign is_active = false %}
+                {% if page.url == "/" %}{% assign is_active = true %}{% endif %}
+                {% if ui_locale == "zh-CN" and page.url == "/zh/" %}{% assign is_active = true %}{% endif %}
+                <a href="{{ item.url }}"{% if is_active %} class="active"{% endif %}>{{ item.title }}</a>
+              {% else %}
+                <a href="{{ item.url }}"{% if page.url contains item.url %} class="active"{% endif %}>{{ item.title }}</a>
+              {% endif %}
             </li>
           {% endfor %}
           <li id="theme-toggle" class="masthead__menu-item persist tail">

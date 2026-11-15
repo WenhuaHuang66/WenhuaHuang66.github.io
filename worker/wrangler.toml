@@ -1,0 +1,20 @@
+# Cloudflare Worker: download
+# 付费下载验证 + R2 预签名 URL（PayPal PDT 方式，适用于 Hosted Button）
+
+name = "compound-search-download"
+main = "download.js"
+compatibility_date = "2024-01-01"
+
+# R2 Bucket 绑定
+[[r2_buckets]]
+binding = "DOWNLOAD_BUCKET"
+bucket_name = "compound-structure-search"
+
+# KV Namespace 绑定
+[[kv_namespaces]]
+binding = "TX_CACHE"
+id = "0ea6cae6f1fe4bdcb02b0802b51ae190"
+
+# PayPal PDT Identity Token（部署时通过 wrangler secret put 写入）
+# 注意：Sandbox 和 Production 是不同的 token
+# PAYPAL_PDT_TOKEN = via wrangler secret put
