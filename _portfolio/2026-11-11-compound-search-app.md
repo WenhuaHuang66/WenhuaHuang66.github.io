@@ -17,7 +17,7 @@ tags:
 <div style="background:#FFF8F0;border:2px solid #E67E22;border-radius:12px;padding:1.5em 2em;margin:1.5em 0;text-align:center;">
   <div style="font-size:0.85em;color:#888;margin-bottom:0.3em;">Instant Download · Lifetime Updates</div>
   <div style="font-size:2.2em;font-weight:800;color:#E67E22;">$5.99 <span style="font-size:0.5em;color:#666;font-weight:500;">USD · one-time</span></div>
-  <a href="https://pancake.waffo.ai/store/%E7%85%8C%E6%96%87%E9%AA%A8%E7%BD%91%E7%BB%9C%E7%A7%91%E6%8A%80%E5%B7%A5%E4%BD%9C%E5%AE%A4-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
+  <a href="https://pancake.waffo.ai/store/煌文骅网络科技工作室-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
      style="display:inline-block;margin-top:0.8em;padding:0.9em 2.2em;background:#E67E22;color:#fff;text-decoration:none;border-radius:8px;font-size:1.05em;font-weight:700;box-shadow:0 2px 8px rgba(230,126,34,0.4);">
     🛒 Buy Now
   </a>
