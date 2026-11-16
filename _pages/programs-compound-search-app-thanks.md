@@ -46,7 +46,7 @@ classes: wide
   const errorDetail = document.getElementById('error-detail');
 
   // Worker URL — 国内可能超时，需要超时降级
-  const WORKER_URL = 'https://compound-search-download.huangwh.workers.dev';
+  const WORKER_URL = 'https://checkout.wenhuahuang.com';
 
   // 超时降级：15 秒后如果 Worker 没响应，提示手动下载
   let timedOut = false;
