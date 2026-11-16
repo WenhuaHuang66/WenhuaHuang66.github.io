@@ -210,15 +210,21 @@ async function handleDownload(url, env, corsHeaders) {
   const email = (url.searchParams.get("email") || "").toLowerCase();
   const orderId = url.searchParams.get("order") || "";
 
+  console.log(`DEBUG /download: email=${email}, order=${orderId}`);
+  console.log(`DEBUG env.TX_CACHE: ${env.TX_CACHE ? "EXISTS" : "MISSING"}`);
+
   if (!email && !orderId) {
     return jsonError("Missing email or order parameter", 400, corsHeaders);
   }
 
   // 方式 A：用 orderId 直接查
   let orderData = null;
-  if (orderId) {
+  if (orderId && env.TX_CACHE) {
     const raw = await env.TX_CACHE.get(`order_${orderId}`);
+    console.log(`DEBUG KV.get('order_${orderId}'): ${raw ? "FOUND" : "NULL"}`);
     if (raw) orderData = JSON.parse(raw);
+  } else if (!env.TX_CACHE) {
+    console.error("TX_CACHE binding MISSING!");
   }
 
   // 方式 B：用 email 查最近的订单（遍历 keys）
@@ -241,13 +247,13 @@ async function handleDownload(url, env, corsHeaders) {
     );
   }
 
-  // 生成预签名 URL
-  const presignedUrl = await env.DOWNLOAD_BUCKET.get(
-    "Compound-Search-App.zip", {
-      httpMethod: "GET",
-      expiresIn: DOWNLOAD_URL_TTL_SECONDS,
-    }
-  );
+  // 从 R2 Bucket 读取 zip 文件
+  const zipObject = await env.DOWNLOAD_BUCKET.get("Compound-Search-App.zip");
+  if (!zipObject) {
+    console.error("R2 bucket: Compound-Search-App.zip NOT FOUND");
+    return jsonError("Download file not found. Please contact support.", 500, corsHeaders);
+  }
+  console.log(`✅ R2 file found: size=${zipObject.size}`);
 
   // 标记已下载（可选：防止同一订单无限下载）
   if (!orderData.downloaded) {
@@ -258,8 +264,15 @@ async function handleDownload(url, env, corsHeaders) {
     });
   }
 
-  // 直接 302 重定向到下载 URL
-  return Response.redirect(presignedUrl, 302);
+  // 直接返回 zip 文件流（浏览器会自动下载）
+  return new Response(zipObject.body, {
+    headers: {
+      "Content-Type": "application/zip",
+      "Content-Disposition": 'attachment; filename="Compound-Search-App.zip"',
+      "Content-Length": zipObject.size.toString(),
+      ...corsHeaders,
+    },
+  });
 }
 
 function jsonError(message, status, headers) {
