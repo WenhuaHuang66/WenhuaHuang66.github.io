@@ -38,7 +38,7 @@ The purchase price of $5.99 USD includes:
 
 ### Commercial License
 
-Commercial use (including but not limited to: deployment on client websites, integration into commercial products, redistribution to third parties) requires a separate commercial license. Please contact [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) for pricing.
+Commercial use (including but not limited to: deployment on client websites, integration into commercial products, redistribution to third parties) requires a separate commercial license. Please contact [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com) for pricing.
 
 ## 4. Payment & Refunds
 
@@ -81,7 +81,7 @@ If Seller determines, in its sole discretion, that you have violated any provisi
 
 ### Third-Party Infringement
 
-If you become aware of any unauthorized use or distribution of the App, you agree to notify Seller promptly at [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com).
+If you become aware of any unauthorized use or distribution of the App, you agree to notify Seller promptly at [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com).
 
 ## 7. Disclaimer of Warranties
 
@@ -103,4 +103,4 @@ Seller reserves the right to modify these Terms at any time. Changes will be pos
 ## 10. Contact
 
 For questions about these Terms, please contact:
-- Email: [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com)
+- Email: [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com)

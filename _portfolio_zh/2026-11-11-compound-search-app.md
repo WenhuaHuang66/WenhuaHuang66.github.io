@@ -56,10 +56,10 @@ tags:
 - ✔ 商业部署许可可单独洽谈（邮件咨询报价）
 
 **商业授权**
-- 如需部署在客户项目、SaaS 产品或多网站，请发邮件至 [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) 咨询报价
+- 如需部署在客户项目、SaaS 产品或多网站，请发邮件至 [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com) 咨询报价
 
 **技术支持**
-- 邮件：[huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) — 请附上您的订单编号
+- 邮件：[csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com) — 请附上您的订单编号
 
 </details>
 

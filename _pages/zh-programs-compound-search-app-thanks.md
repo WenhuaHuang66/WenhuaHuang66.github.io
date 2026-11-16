@@ -22,7 +22,7 @@ classes: wide
 <div id="download-error" style="display:none;padding:2em;background:#fef2f2;border-radius:8px;border-left:4px solid #dc2626;margin:1.5em 0;">
   <h3 style="color:#dc2626;margin-top:0;">抱歉，无法验证您的付款。</h3>
   <p id="error-detail" style="color:#666;"></p>
-  <p>请返回<a href="/zh/programs/compound-search-app/">产品页面</a>重试，或邮件联系 <a href="mailto:huangwenhua66@icloud.com">huangwenhua66@icloud.com</a> 并附上 PayPal 交易截图。</p>
+  <p>请返回<a href="/zh/programs/compound-search-app/">产品页面</a>重试，或邮件联系 <a href="mailto:csa-support@wenhuahuang.com">csa-support@wenhuahuang.com</a> 并附上 PayPal 交易截图。</p>
 </div>
 
 <style>

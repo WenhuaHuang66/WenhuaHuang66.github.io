@@ -21,7 +21,7 @@ classes: wide
 <div id="download-error" style="display:none;padding:2em;background:#fef2f2;border-radius:8px;border-left:4px solid #dc2626;margin:1.5em 0;">
   <h3 style="color:#dc2626;margin-top:0;">Sorry, we couldn't verify your payment.</h3>
   <p id="error-detail" style="color:#666;"></p>
-  <p>Please return to the <a href="/programs/compound-search-app/">product page</a> and try again, or email <a href="mailto:huangwenhua66@icloud.com">huangwenhua66@icloud.com</a> with your PayPal receipt.</p>
+  <p>Please return to the <a href="/programs/compound-search-app/">product page</a> and try again, or email <a href="mailto:csa-support@wenhuahuang.com">csa-support@wenhuahuang.com</a> with your PayPal receipt.</p>
 </div>
 
 <style>

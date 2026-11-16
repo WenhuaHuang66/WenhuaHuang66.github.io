@@ -55,10 +55,10 @@ tags:
 - ✔ Commercial deployment license available separately (email for quote)
 
 **Commercial Licensing**
-- For client projects, SaaS, or multi-site deployment, contact [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) for a commercial quote
+- For client projects, SaaS, or multi-site deployment, contact [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com) for a commercial quote
 
 **Support**
-- Email: [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com) — please include your order ID
+- Email: [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com) — please include your order ID
 
 </details>
 

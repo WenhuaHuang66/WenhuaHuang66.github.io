@@ -69,7 +69,7 @@ Depending on your location, you may have the right to:
 - Request correction or deletion of your data
 - Opt out of analytics tracking
 
-To exercise these rights, contact [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com).
+To exercise these rights, contact [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com).
 
 ## 7. Children's Privacy
 
@@ -82,5 +82,5 @@ We may update this Privacy Policy from time to time. Changes will be posted on t
 ## 9. Contact
 
 For privacy-related questions, please contact:
-- Email: [huangwenhua66@icloud.com](mailto:huangwenhua66@icloud.com)
+- Email: [csa-support@wenhuahuang.com](mailto:csa-support@wenhuahuang.com)
 - Website: [https://wenhuahuang66.github.io/about/](https://wenhuahuang66.github.io/about/)
