@@ -1,7 +1,7 @@
 // Compound Structure Search App — Paid Download Worker
 // 双模式：
-//   1. Webhook 接收（POST /webhook）：Waffo 付款成功后调用 → 存 KV
-//   2. 下载验证（GET /download?email=xxx&order=xxx）：thanks 页调用 → 查 KV → 预签名 URL
+//   1. Webhook 接收（POST /webhook）：Waffo 付款成功后调用 → RSA 签名验证 → 存 KV
+//   2. 下载验证（GET /download?email=xxx&order=xxx）：thanks 页调用 → 查 KV → 预签名 URL → 302
 
 const DOWNLOAD_URL_TTL_SECONDS = 3600; // 预签名 URL 有效期 1 小时
 
@@ -10,39 +10,28 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // CORS 头
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, X-Waffo-Signature",
+      "Access-Control-Allow-Headers": "Content-Type, X-Signature",
       "Content-Type": "application/json",
     };
 
-    // CORS preflight
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
 
     try {
-      // Webhook 接收端点（Waffo 付款成功后 POST）
       if (path === "/webhook" && request.method === "POST") {
         return await handleWebhook(request, env, corsHeaders);
       }
-
-      // 下载验证端点（thanks 页调）
       if (path === "/download" && request.method === "GET") {
         return await handleDownload(url, env, corsHeaders);
       }
-
-      // 根路径健康检查
       if (path === "/" && request.method === "GET") {
-        return new Response(JSON.stringify({ ok: true, service: "compound-search-download" }), {
-          headers: corsHeaders,
-        });
+        return new Response(JSON.stringify({ ok: true, service: "compound-search-download" }), { headers: corsHeaders });
       }
-
       return jsonError("Not found", 404, corsHeaders);
-
     } catch (err) {
       console.error("Worker error:", err);
       return jsonError("Internal server error: " + err.message, 500, corsHeaders);
@@ -50,30 +39,62 @@ export default {
   },
 };
 
-// ---- Webhook 接收 ----
+// ---- Webhook 接收（Waffo RSA 签名验证）----
 
 async function handleWebhook(request, env, corsHeaders) {
   const body = await request.text();
 
-  // 验证签名（如果 Waffo 提供）
-  // 先宽松处理：如果有 WAFFO_WEBHOOK_SECRET，就验证
-  const secret = env.WAFFO_WEBHOOK_SECRET;
-  if (secret) {
-    const sig = request.headers.get("X-Waffo-Signature") || request.headers.get("X-Signature");
-    if (sig) {
-      // HMAC-SHA256 验证
-      const encoder = new TextEncoder();
-      const keyData = await crypto.subtle.importKey(
-        "raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]
-      );
-      const expectedSig = await crypto.subtle.sign("HMAC", keyData, encoder.encode(body));
-      const expectedSigB64 = btoa(String.fromCharCode(...new Uint8Array(expectedSig)));
-      if (sig !== expectedSigB64 && sig !== "sha256=" + expectedSigB64) {
-        console.warn("Webhook signature mismatch");
-        // 不返回错误——Waffo 会重试；但我们拒绝处理
-        return jsonError("Invalid signature", 401, corsHeaders);
-      }
+  // 1. 获取 Waffo RSA 公钥（通过 wrangler secret put 写入）
+  const publicKeyPEM = env.WAFFO_PUBLIC_KEY;
+  if (publicKeyPEM) {
+    const signature = request.headers.get("X-Signature");
+    if (!signature) {
+      console.warn("Webhook missing X-Signature header");
+      return jsonError("Missing signature", 401, corsHeaders);
     }
+    // RSA-PKCS1v15-SHA256 签名验证
+    if (!(await verifyRsaSignature(publicKeyPEM, body, signature))) {
+      console.warn("Webhook RSA signature verification failed");
+      return jsonError("Invalid signature", 401, corsHeaders);
+    }
+    console.log("✅ Webhook RSA signature verified");
+  } else {
+    console.warn("WAFFO_PUBLIC_KEY not set, skipping signature verification");
+  }
+
+  // ---- RSA 验证工具 ----
+  async function verifyRsaSignature(pem, body, signatureBase64) {
+    try {
+      // 去掉 PEM 头尾，提取 base64 DER
+      const base64Der = pem
+        .replace(/-----BEGIN PUBLIC KEY-----/g, "")
+        .replace(/-----END PUBLIC KEY-----/g, "")
+        .replace(/\s+/g, "");
+      // 解码 DER
+      const derBytes = base64ToBytes(base64Der);
+      // 导入 RSA 公钥（SPKI 格式）
+      const publicKey = await crypto.subtle.importKey(
+        "spki", derBytes,
+        { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+        false, ["verify"]
+      );
+      // 解码签名 base64
+      const sigBytes = base64ToBytes(signatureBase64.trim());
+      // 验证
+      const bodyBytes = new TextEncoder().encode(body);
+      return await crypto.subtle.verify("RSASSA-PKCS1-v1_5", publicKey, sigBytes, bodyBytes);
+    } catch (e) {
+      console.error("RSA verification error:", e);
+      return false;
+    }
+  }
+
+  function base64ToBytes(str) {
+    const padded = str + "=".repeat((4 - (str.length % 4)) % 4);
+    const bin = atob(padded);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return arr;
   }
 
   const payload = JSON.parse(body);
