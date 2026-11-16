@@ -22,6 +22,9 @@ export default {
     }
 
     try {
+      if (path === "/checkout" && request.method === "GET") {
+        return await handleCheckout(url, env, corsHeaders);
+      }
       if (path === "/webhook" && request.method === "POST") {
         return await handleWebhook(request, env, corsHeaders);
       }
@@ -29,7 +32,7 @@ export default {
         return await handleDownload(url, env, corsHeaders);
       }
       if (path === "/" && request.method === "GET") {
-        return new Response(JSON.stringify({ ok: true, service: "compound-search-download" }), { headers: corsHeaders });
+        return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download"] }), { headers: corsHeaders });
       }
       return jsonError("Not found", 404, corsHeaders);
     } catch (err) {
@@ -38,6 +41,67 @@ export default {
     }
   },
 };
+
+// ---- Checkout Session 创建（动态，永远不会过期）----
+
+async function handleCheckout(url, env, corsHeaders) {
+  const productId = url.searchParams.get("pid") || "PROD_0gi1Ii835HYjHQkofJCzr1";
+  const productType = url.searchParams.get("type") || "onetime";
+  const currency = url.searchParams.get("currency") || "USD";
+  const storeSlug = env.WAFFO_STORE_SLUG || "7txh4wil"; // 如果配了 secret 用 secret，否则用默认
+  const storeSlugFull = env.WAFFO_STORE_SLUG_FULL || "煌文骅网络科技工作室-7txh4wil";
+
+  console.log(`Creating checkout session: pid=${productId}, slug=${storeSlug}`);
+
+  // 先尝试短 slug，不行再用完整 slug
+  const slugsToTry = [storeSlug, storeSlugFull];
+  let lastError = null;
+
+  for (const slug of slugsToTry) {
+    try {
+      const resp = await fetch("https://api.waffo.ai/v1/actions/checkout/create-session", {
+        method: "POST",
+        headers: {
+          "X-Store-Slug": slug,
+          "X-Environment": "prod",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId,
+          productType,
+          currency,
+        }),
+      });
+
+      const data = await resp.json();
+      console.log(`Waffo API response (slug=${slug}):`, JSON.stringify(data).substring(0, 300));
+
+      if (resp.ok && data?.data?.checkoutUrl) {
+        console.log("✅ Checkout URL created:", data.data.checkoutUrl);
+        return Response.redirect(data.data.checkoutUrl, 302);
+      }
+
+      if (resp.ok && data?.data?.url) {
+        console.log("✅ Checkout URL (alt field):", data.data.url);
+        return Response.redirect(data.data.url, 302);
+      }
+
+      lastError = JSON.stringify(data.errors || data).substring(0, 200);
+      console.warn(`Slug ${slug} failed:`, lastError);
+    } catch (err) {
+      lastError = err.message;
+      console.warn(`Slug ${slug} exception:`, err.message);
+    }
+  }
+
+  // 两个都失败了，返回有用的错误
+  return new Response(JSON.stringify({
+    error: "Failed to create checkout session",
+    details: lastError,
+    triedSlugs: slugsToTry,
+    hint: "Check Waffo Store Slug in Dashboard → Integration page",
+  }), { status: 502, headers: corsHeaders });
+}
 
 // ---- Webhook 接收（Waffo RSA 签名验证）----
 
