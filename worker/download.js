@@ -113,8 +113,12 @@ async function handleWebhook(request, env, corsHeaders) {
   let sigVerified = false;
 
   if (publicKeyPEM) {
-    const signature = request.headers.get("X-Signature");
-    if (signature) {
+    // Waffo signature header: X-Waffo-Signature: t=<timestamp>,v1=<signature>
+    const rawSig = request.headers.get("X-Waffo-Signature");
+    if (rawSig) {
+      // 提取 v1=<signature> 部分
+      const sigMatch = rawSig.match(/v1=([^,]+)/);
+      const signature = sigMatch ? sigMatch[1] : rawSig;
       sigVerified = await verifyRsaSignature(publicKeyPEM, body, signature);
       if (sigVerified) {
         console.log("✅ Webhook RSA signature verified");
@@ -122,7 +126,7 @@ async function handleWebhook(request, env, corsHeaders) {
         console.warn("⚠️ Webhook RSA signature verification FAILED — will still store");
       }
     } else {
-      console.warn("⚠️ Webhook missing X-Signature header — will still store (dev mode)");
+      console.warn("⚠️ Webhook missing X-Waffo-Signature header — will still store (dev mode)");
     }
   } else {
     console.warn("⚠️ WAFFO_PUBLIC_KEY not set — storing without signature verification");
@@ -165,28 +169,39 @@ async function handleWebhook(request, env, corsHeaders) {
 
   const payload = JSON.parse(body);
 
-  // 只处理订单完成事件
-  const eventType = payload.type || payload.event || "";
-  const isOrderComplete =
-    eventType.includes("order") && (eventType.includes("complete") || eventType.includes("success") || eventType.includes("paid")) ||
-    (payload.order && payload.order.status === "completed");
+  // 🔧 调试：把原始 payload 存进 KV（不解析，事后可查）
+  try {
+    const rawKey = `raw_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    await env.TX_CACHE.put(rawKey, body, { expirationTtl: 7 * 24 * 3600 });
+    console.log(`🔧 Raw payload saved to KV: ${rawKey}`);
+    console.log(`🔧 Full payload: ${body.substring(0, 500)}`);
+  } catch (e) {
+    console.warn(`🔧 Save raw payload failed: ${e.message}`);
+  }
 
-  if (!isOrderComplete) {
-    return new Response(JSON.stringify({ ok: true, ignored: true, reason: "not an order complete event" }), {
+  // Waffo 真实 payload 格式:
+  // { id, eventType, mode, data: { orderId, buyerEmail, chargedAmount, currency, ... } }
+  const eventType = payload.eventType || payload.type || payload.event || "";
+  const data = payload.data || {};
+
+  console.log(`📨 Webhook received: eventType=${eventType}, mode=${payload.mode || "unknown"}`);
+
+  // 只处理 order.completed
+  if (eventType !== "order.completed") {
+    return new Response(JSON.stringify({ ok: true, ignored: true, reason: `eventType=${eventType}` }), {
       headers: corsHeaders,
     });
   }
 
-  // 提取订单信息（Waffo payload 字段，可能不同版本略有差异）
-  const order = payload.order || payload.data?.order || {};
-  const orderId = order.id || order.orderId || order.shortId || payload.orderId || `unknown-${Date.now()}`;
-  const email = (order.buyer?.email || order.customer?.email || order.email || payload.customerEmail || "").toLowerCase();
-  const amount = order.amount || order.total || payload.amount || 0;
-  const currency = order.currency || payload.currency || "CNY";
+  // 从 data 提取订单信息（Waffo 官方字段）
+  const orderId = data.orderId || `unknown-${Date.now()}`;
+  const email = (data.buyerEmail || data.email || "").toLowerCase();
+  const amount = data.chargedAmount || data.amount || data.total || "0";
+  const currency = data.currency || "USD";
 
   if (!email) {
-    console.error("No email in webhook payload:", JSON.stringify(payload).substring(0, 500));
-    return new Response(JSON.stringify({ ok: false, error: "no email" }), {
+    console.error("No buyerEmail in webhook payload:", JSON.stringify(payload).substring(0, 500));
+    return new Response(JSON.stringify({ ok: false, error: "no buyerEmail" }), {
       status: 400, headers: corsHeaders,
     });
   }
