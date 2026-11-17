@@ -37,7 +37,8 @@ classes: wide
     </a>
   </div>
 
-  <p style="margin-top:1.5em;font-size:0.85em;color:#888;">Having trouble? Contact <a href="mailto:csa-support@wenhuahuang.com">csa-support@wenhuahuang.com</a></p>
+  <p style="margin-top:1.2em;font-size:0.8em;color:#999;">📌 Download access is valid for <strong>30 days</strong> after purchase. Save the file to your device promptly — once downloaded, it's yours permanently.</p>
+  <p style="margin-top:0.8em;font-size:0.85em;color:#888;">Having trouble? Contact <a href="mailto:csa-support@wenhuahuang.com">csa-support@wenhuahuang.com</a></p>
 
 </div>
 

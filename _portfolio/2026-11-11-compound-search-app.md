@@ -26,6 +26,9 @@ tags:
     <a href="/terms/" style="color:#0066cc;">Terms</a> ·
     <a href="/privacy/" style="color:#0066cc;">Privacy</a>
   </div>
+  <div style="color:#aaa;font-size:0.75em;margin-top:0.4em;">
+    📌 Download link valid for 30 days after purchase. Save once, own forever.
+  </div>
 </div>
 
 ### Features

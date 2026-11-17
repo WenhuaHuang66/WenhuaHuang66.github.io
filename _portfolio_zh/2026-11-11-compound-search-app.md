@@ -27,6 +27,9 @@ tags:
     <a href="/terms/" style="color:#0066cc;">服务条款</a> ·
     <a href="/privacy/" style="color:#0066cc;">隐私政策</a>
   </div>
+  <div style="color:#aaa;font-size:0.75em;margin-top:0.4em;">
+    📌 下载凭证自购买之日起 30 天内有效。文件下载后归您永久所有。
+  </div>
 </div>
 
 ### 功能特性

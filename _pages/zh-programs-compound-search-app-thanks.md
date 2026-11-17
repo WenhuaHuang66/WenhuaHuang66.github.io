@@ -38,7 +38,8 @@ classes: wide
     </a>
   </div>
 
-  <p style="margin-top:1.5em;font-size:0.85em;color:#888;">遇到问题？请联系 <a href="mailto:csa-support@wenhuahuang.com">csa-support@wenhuahuang.com</a></p>
+  <p style="margin-top:1.2em;font-size:0.8em;color:#999;">📌 下载凭证自购买之日起 <strong>30 天内有效</strong>，请及时保存到您的设备。下载成功后，文件归您永久所有。</p>
+  <p style="margin-top:0.8em;font-size:0.85em;color:#888;">遇到问题？请联系 <a href="mailto:csa-support@wenhuahuang.com">csa-support@wenhuahuang.com</a></p>
 
 </div>
 
