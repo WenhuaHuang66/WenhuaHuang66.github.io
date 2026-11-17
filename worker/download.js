@@ -31,8 +31,11 @@ export default {
       if (path === "/download" && request.method === "GET") {
         return await handleDownload(url, env, corsHeaders);
       }
+      if (path === "/api/order-lookup" && request.method === "GET") {
+        return await handleOrderLookup(url, env, corsHeaders);
+      }
       if (path === "/" && request.method === "GET") {
-        return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download"] }), { headers: corsHeaders });
+        return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download", "/api/order-lookup"] }), { headers: corsHeaders });
       }
       return jsonError("Not found", 404, corsHeaders);
     } catch (err) {
@@ -294,4 +297,53 @@ async function handleDownload(url, env, corsHeaders) {
 
 function jsonError(message, status, headers) {
   return new Response(JSON.stringify({ error: message }), { status, headers });
+}
+
+// ---- 邮箱查询最近订单 ----
+
+async function handleOrderLookup(url, env, corsHeaders) {
+  const email = (url.searchParams.get("email") || "").toLowerCase().trim();
+
+  if (!email) {
+    return jsonError("Missing email parameter", 400, corsHeaders);
+  }
+
+  if (!env.TX_CACHE) {
+    return jsonError("KV not configured", 500, corsHeaders);
+  }
+
+  // 列出这个邮箱的所有订单索引
+  const keys = await env.TX_CACHE.list({ prefix: `email_${email}:`, limit: 10 });
+
+  const orders = [];
+  for (const key of keys.keys) {
+    const orderKey = `order_${key.name.split(":")[1]}`;
+    const raw = await env.TX_CACHE.get(orderKey);
+    if (raw) {
+      try {
+        const order = JSON.parse(raw);
+        orders.push({
+          orderId: order.orderId,
+          email: order.email,
+          amount: order.amount,
+          currency: order.currency,
+          createdAt: order.createdAt,
+          downloaded: order.downloaded || false,
+        });
+      } catch (e) { /* skip corrupt */ }
+    }
+  }
+
+  // 按时间倒序，最新的排前面
+  orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  if (orders.length === 0) {
+    return new Response(JSON.stringify({ found: false, message: "No paid order found for this email." }), {
+      headers: corsHeaders,
+    });
+  }
+
+  return new Response(JSON.stringify({ found: true, count: orders.length, orders }), {
+    headers: corsHeaders,
+  });
 }
