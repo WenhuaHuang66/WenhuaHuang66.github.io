@@ -17,8 +17,8 @@ tags:
 
 <div style="background:#FFF8F0;border:2px solid #E67E22;border-radius:12px;padding:1.5em 2em;margin:1.5em 0;text-align:center;">
   <div style="font-size:0.85em;color:#888;margin-bottom:0.3em;">购买即下 · 终身免费更新</div>
-  <div style="font-size:2.2em;font-weight:800;color:#E67E22;">$5.99 <span style="font-size:0.5em;color:#666;font-weight:500;">美元 · 一次性买断</span></div>
-  <a href="https://pancake.waffo.ai/store/煌文骅网络科技工作室-7txh4wil/product/PROD_0gi1Ii835HYjHQkofJCzr1?type=onetime&currency=USD"
+  <div style="font-size:2.2em;font-weight:800;color:#E67E22;">¥39.99 <span style="font-size:0.5em;color:#666;font-weight:500;">人民币 · 一次性买断</span></div>
+  <a href="https://pancake.waffo.ai/store/煌文骅网络科技工作室-7txh4wil/product/PROD_2c7qUNjx0U4DS4mrtpwV5X?type=onetime&currency=CNY"
      style="display:inline-block;margin-top:0.8em;padding:0.9em 2.2em;background:#E67E22;color:#fff;text-decoration:none;border-radius:8px;font-size:1.05em;font-weight:700;box-shadow:0 2px 8px rgba(230,126,34,0.4);">
     🛒 立即购买
   </a>

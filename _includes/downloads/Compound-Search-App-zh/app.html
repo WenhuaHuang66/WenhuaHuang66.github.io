@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0066cc"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="化学结构式搜索"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="apple-touch-icon" href="images/apple-touch-icon-180x180.png"/>
+  <link rel="icon" type="image/png" href="images/favicon-192x192.png"/>
+  <title>化学结构式搜索</title>
+  <style>
+    /* Mobile-first inline CSS, zero external deps */
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #fff; color: #222; }
+    body { min-height: 100vh; padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); }
+    .slogan { text-align: center; font-size: 1.1em; font-weight: 700; color: #E67E22; margin: 8px 0 28px; letter-spacing: 0.5px; }
+    .search-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .search-row input { flex: 1; padding: 12px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 16px; outline: none; }
+    .search-row input:focus { border-color: #0066cc; box-shadow: 0 0 0 2px rgba(0,102,204,0.15); }
+    .search-row button { padding: 12px 22px; background: #0066cc; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer; }
+    .search-row button:active { background: #0055aa; }
+    .result { font-size: 15px; color: #666; margin-bottom: 24px; min-height: 1em; }
+    .result .label { font-weight: 600; color: #222; margin-bottom: 10px; }
+    .result img { max-width: 100%; max-height: 260px; border: 1px solid #eee; border-radius: 8px; padding: 8px; background: #fff; display: block; margin: 0 auto; }
+    .result .smiles { font-size: 12px; color: #999; margin-top: 10px; word-break: break-all; font-family: Menlo, Consolas, monospace; }
+    .history-title { font-size: 12px; color: #aaa; margin: 28px 0 10px; letter-spacing: 0.5px; }
+    .history-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .history-item { padding: 7px 14px; background: #f0f4f8; color: #0066cc; border-radius: 18px; font-size: 14px; cursor: pointer; border: none; }
+    .history-item:active { background: #e0e8f0; }
+    .history-empty { color: #ccc; font-size: 13px; font-style: italic; }
+  </style>
+</head>
+<body>
+  <p class="slogan">轻松查询化学结构式！</p>
+
+  <div class="search-row">
+    <input type="text" id="compound-input" placeholder="请输入化合物名（如苯或benzene）" onkeydown="if(event.key==='Enter')doSearch()" autocapitalize="off" autocomplete="off"/>
+    <button onclick="doSearch()">搜索</button>
+  </div>
+
+  <div id="compound-result" class="result"></div>
+
+  <div class="history-title">最近搜索</div>
+  <div id="history-list" class="history-list"></div>
+
+  <script>
+    // Chinese-English dictionary (verified professional names)
+    const ZH_EN_DICT = {"苯":"Benzene","甲苯":"Toluene","二甲苯":"Xylene","苯乙烯":"Styrene","萘":"Naphthalene","蒽":"Anthracene","菲":"Phenanthrene","联苯":"Biphenyl","苯酚":"Phenol","苯胺":"Aniline","苯甲醛":"Benzaldehyde","苯甲酸":"Benzoic acid","苯甲醚":"Anisole","硝基苯":"Nitrobenzene","甲醇":"Methanol","乙醇":"Ethanol","丙醇":"Propanol","异丙醇":"Isopropanol","丁醇":"Butanol","乙二醇":"Ethylene glycol","甘油":"Glycerol","甲醛":"Formaldehyde","乙醛":"Acetaldehyde","丙酮":"Acetone","环己酮":"Cyclohexanone","甲酸":"Formic acid","乙酸":"Acetic acid","草酸":"Oxalic acid","柠檬酸":"Citric acid","乳酸":"Lactic acid","水杨酸":"Salicylic acid","阿司匹林":"Aspirin","乙醚":"Diethyl ether","四氢呋喃":"Tetrahydrofuran","乙腈":"Acetonitrile","二氯甲烷":"Dichloromethane","氯仿":"Chloroform","四氯化碳":"Carbon tetrachloride","环己烷":"Cyclohexane","己烷":"Hexane","葡萄糖":"Glucose","果糖":"Fructose","蔗糖":"Sucrose","麦芽糖":"Maltose","乳糖":"Lactose","淀粉":"Starch","纤维素":"Cellulose","尿素":"Urea","甘氨酸":"Glycine","丙氨酸":"Alanine","缬氨酸":"Valine","亮氨酸":"Leucine","异亮氨酸":"Isoleucine","苯丙氨酸":"Phenylalanine","酪氨酸":"Tyrosine","色氨酸":"Tryptophan","丝氨酸":"Serine","苏氨酸":"Threonine","半胱氨酸":"Cysteine","甲硫氨酸":"Methionine","蛋氨酸":"Methionine","赖氨酸":"Lysine","精氨酸":"Arginine","组氨酸":"Histidine","天冬氨酸":"Aspartic acid","谷氨酸":"Glutamic acid","咖啡因":"Caffeine","尼古丁":"Nicotine","胆固醇":"Cholesterol","乙酸乙酯":"Ethyl acetate","乙酸酐":"Acetic anhydride","二甲基亚砜":"Dimethyl sulfoxide","二甲基甲酰胺":"Dimethylformamide"};
+
+    // ---- LocalStorage history (max 5 entries) ----
+    const HISTORY_KEY = 'compoundSearchHistory';
+    function loadHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch(e) { return []; } }
+    function saveHistoryItem(entry) {
+      let h = loadHistory().filter(function(x) { return x.query !== entry.query; });
+      h.unshift(entry);
+      h = h.slice(0, 5);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+      renderHistory();
+    }
+    function renderHistory() {
+      var h = loadHistory();
+      var box = document.getElementById('history-list');
+      if (h.length === 0) {
+        box.innerHTML = '<span class="history-empty">暂无搜索记录</span>';
+        return;
+      }
+      box.innerHTML = h.map(function(e, i) {
+        return '<button class="history-item" onclick="restoreHistory(' + i + ')" title="' + (e.enName || '') + '">' + e.query + '</button>';
+      }).join('');
+    }
+    function restoreHistory(i) {
+      var e = loadHistory()[i];
+      if (e) {
+        showCompoundResult(e.query, e.enName, e.imageUrl, e.smiles);
+        document.getElementById('compound-input').value = e.query;
+      }
+    }
+
+    // ---- Search helpers ----
+    function hasChinese(s) { return /[\u4e00-\u9fa5]/.test(s); }
+    function cleanTranslation(t) {
+      if (!t) return "";
+      t = String(t).replace(/<[^>]*>/g, "");
+      t = t.split(/[，,;；=]/)[0].trim();
+      return t;
+    }
+    async function translateZhToEn(text) {
+      if (ZH_EN_DICT[text]) return ZH_EN_DICT[text];
+      try {
+        var r = await fetch("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=zh%7Cen");
+        var j = await r.json();
+        if (j && j.responseData && j.responseData.translatedText) {
+          return cleanTranslation(j.responseData.translatedText);
+        }
+      } catch (e) {}
+      return "";
+    }
+
+    function showCompoundResult(query, enName, imageUrl, smiles) {
+      var result = document.getElementById('compound-result');
+      var label = (query !== enName) ? (query + " (" + enName + ")") : query;
+      var html = '<div><div class="label">' + label + '</div>';
+      if (imageUrl) {
+        html += '<img src="' + imageUrl + '" alt="' + enName + '" onerror="this.parentElement.innerHTML=\'<p>没搜到此化合物结构式。</p>\'">';
+      }
+      if (smiles) html += '<div class="smiles">SMILES: ' + smiles + '</div>';
+      html += '</div>';
+      result.innerHTML = html;
+    }
+
+    async function doSearch() {
+      var input = document.getElementById('compound-input');
+      var result = document.getElementById('compound-result');
+      var query = input.value.trim();
+      if (!query) { result.innerHTML = '请输入化合物名。'; return; }
+
+      result.innerHTML = '正在查询...';
+
+      // Resolve Chinese name to English
+      var enName = query;
+      if (hasChinese(query)) {
+        enName = await translateZhToEn(query);
+        if (!enName) { result.innerHTML = '没搜到此化合物结构式。'; return; }
+      }
+
+      // Try OPSIN first
+      try {
+        var opsinUrl = 'https://www.ebi.ac.uk/opsin/api/name/' + encodeURIComponent(enName) + '.json';
+        var resp = await fetch(opsinUrl, { headers: { 'Accept': 'application/json' } });
+        if (resp.ok) {
+          var data = await resp.json();
+          if (data && (data.smiles || data.inchi)) {
+            var imageUrl = '';
+            if (data.inchi) {
+              imageUrl = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchi/' + encodeURIComponent(data.inchi) + '/PNG';
+            } else if (data.smiles) {
+              imageUrl = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/' + encodeURIComponent(data.smiles) + '/PNG';
+            }
+            showCompoundResult(query, enName, imageUrl, data.smiles || '');
+            saveHistoryItem({ query: query, enName: enName, imageUrl: imageUrl, smiles: data.smiles || '', timestamp: Date.now() });
+            return;
+          }
+        }
+      } catch (e) { /* fall through */ }
+
+      // Fallback: direct PubChem name → PNG probe
+      var pubchemUrl = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + encodeURIComponent(enName) + '/PNG';
+      var img = new Image();
+      img.onload = function() {
+        showCompoundResult(query, enName, pubchemUrl, '');
+        saveHistoryItem({ query: query, enName: enName, imageUrl: pubchemUrl, smiles: '', timestamp: Date.now() });
+      };
+      img.onerror = function() { result.innerHTML = '没搜到此化合物结构式。'; };
+      img.src = pubchemUrl;
+    }
+
+    // Register SW (use relative path for downloaded version)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').catch(function() {});
+      });
+    }
+
+    // Render history on load
+    renderHistory();
+  </script>
+</body>
+</html>

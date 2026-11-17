@@ -203,9 +203,10 @@ async function handleWebhook(request, env, corsHeaders) {
   const currency = data.currency || "USD";
 
   if (!email) {
-    console.error("No buyerEmail in webhook payload:", JSON.stringify(payload).substring(0, 500));
-    return new Response(JSON.stringify({ ok: false, error: "no buyerEmail" }), {
-      status: 400, headers: corsHeaders,
+    // 测试事件可能没有真实订单数据，宽容返回 200 避免 Waffo 重试
+    console.warn("⚠️ No buyerEmail — likely a test event, returning 200");
+    return new Response(JSON.stringify({ ok: true, skipped: true, reason: "no buyerEmail (test event?)" }), {
+      status: 200, headers: corsHeaders,
     });
   }
 
@@ -267,13 +268,24 @@ async function handleDownload(url, env, corsHeaders) {
     );
   }
 
-  // 从 R2 Bucket 读取 zip 文件
-  const zipObject = await env.DOWNLOAD_BUCKET.get("Compound-Search-App.zip");
+  // 从 R2 Bucket 读取 zip 文件（根据 productId 或 lang 参数选英文版/中文版）
+  let zipKey = "Compound-Search-App.zip";
+  let zipFilename = "Compound-Search-App.zip";
+  const lang = url.searchParams.get("lang") || "";
+  const productId = orderData.productId || "";
+
+  // 中文版产品：PROD_2c7qUNjx0U4DS4mrtpwV5X
+  if (lang === "zh" || productId === "PROD_2c7qUNjx0U4DS4mrtpwV5X") {
+    zipKey = "Compound-Search-App-zh.zip";
+    zipFilename = "Compound-Search-App-zh.zip";
+  }
+
+  const zipObject = await env.DOWNLOAD_BUCKET.get(zipKey);
   if (!zipObject) {
-    console.error("R2 bucket: Compound-Search-App.zip NOT FOUND");
+    console.error(`R2 bucket: ${zipKey} NOT FOUND`);
     return jsonError("Download file not found. Please contact support.", 500, corsHeaders);
   }
-  console.log(`✅ R2 file found: size=${zipObject.size}`);
+  console.log(`✅ R2 file found: ${zipKey}, size=${zipObject.size}`);
 
   // 标记已下载（可选：防止同一订单无限下载）
   if (!orderData.downloaded) {
@@ -287,10 +299,10 @@ async function handleDownload(url, env, corsHeaders) {
   // 直接返回 zip 文件流（浏览器会自动下载）
   return new Response(zipObject.body, {
     headers: {
-      "Content-Type": "application/zip",
-      "Content-Disposition": 'attachment; filename="Compound-Search-App.zip"',
-      "Content-Length": zipObject.size.toString(),
       ...corsHeaders,
+      "Content-Type": "application/zip",
+      "Content-Disposition": `attachment; filename="${zipFilename}"`,
+      "Content-Length": zipObject.size.toString(),
     },
   });
 }

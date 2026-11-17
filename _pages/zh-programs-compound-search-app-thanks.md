@@ -66,7 +66,7 @@ classes: wide
 
   // 有 email+order 参数 → 直接走下载流程
   if (email && order) {
-    const dlUrl = WORKER + '/download?email=' + encodeURIComponent(email) + '&order=' + encodeURIComponent(order);
+    const dlUrl = WORKER + '/download?email=' + encodeURIComponent(email) + '&order=' + encodeURIComponent(order) + '&lang=zh';
     window.location.href = dlUrl;
     setTimeout(function() {
       spinner.style.display = 'none';
@@ -100,7 +100,7 @@ classes: wide
 
       if (data.found && data.orders && data.orders.length > 0) {
         const order = data.orders[0];
-        const dlUrl = WORKER + '/download?email=' + encodeURIComponent(queryEmail) + '&order=' + encodeURIComponent(order.orderId);
+        const dlUrl = WORKER + '/download?email=' + encodeURIComponent(queryEmail) + '&order=' + encodeURIComponent(order.orderId) + '&lang=zh';
 
         document.getElementById('order-found-msg').textContent =
           '已找到订单 (' + (order.currency || '') + ' ' + (order.amount || '') + '，' + order.createdAt.slice(0,10) + ')';
