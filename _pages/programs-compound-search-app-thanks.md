@@ -1,6 +1,8 @@
 ---
-title: "Download — Compound Structure Search App"
+title: "Download — Chemical Structure Search Tool"
 permalink: /programs/compound-search-app/thanks/
+excerpt: "Thank you for purchasing the Chemical Structure Search Tool. Find your download by entering your purchase email."
+description: "Download page for the Chemical Structure Search Tool. Enter your purchase email to retrieve your order and download the PWA package."
 classes: wide
 ---
 

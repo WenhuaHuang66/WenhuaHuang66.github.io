@@ -1,8 +1,10 @@
 ---
-title: "Compound Structure Search App"
+title: "Chemical Structure Search Tool — Chinese + English Queries"
 date: 2026-11-11
 permalink: /programs/compound-search-app/
-excerpt: "A lightweight PWA for finding chemical compound structures. Chinese + English support, search history, PWA installable."
+excerpt: "A lightweight PWA tool to search chemical compound structures by Chinese or English name. Integrates PubChem, OPSIN, and translation layers for accurate results."
+description: "Chemical structure search tool supporting Chinese and English queries. Find benzene, aspirin, and other compound structures via PubChem + OPSIN. PWA installable, offline-capable."
+keywords: "chemical structure search, compound lookup, PubChem alternative, chemistry tool, benzene structure, aspirin structure, chemical formula, PWA chemistry app"
 collection: portfolio
 classes: wide
 tags:

@@ -26,6 +26,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Wenhua Huang"/>
 
+<!-- SEO: keywords (minimal-mistakes theme does NOT output this automatically) -->
+{% if page.keywords %}
+<meta name="keywords" content="{{ page.keywords }}">
+{% elsif site.keywords %}
+<meta name="keywords" content="{{ site.keywords }}">
+{% endif %}
+
+<!-- SEO: force og:locale to zh-CN for Chinese pages -->
+{% assign ui_locale = page.locale | default: site.locale %}
+{% if page.url contains "/zh/" or page.url == "/zh/" %}
+<meta property="og:locale" content="zh_CN">
+{% endif %}
+
 <!-- end custom head snippets -->
 
 <!-- Register Service Worker (for PWA install prompt on Android) -->

@@ -1,8 +1,10 @@
 ---
-title: "化学结构式搜索工具"
+title: "化合物结构搜索工具 — 中英文双语查询"
 date: 2026-11-11
 permalink: /zh/programs/compound-search-app/
-excerpt: "一款轻量级 PWA，用于查询化学化合物的结构式。中英文双语、搜索历史、可安装为手机 App。"
+excerpt: "轻量级 PWA 化学结构式搜索工具，支持中文名（苯、阿司匹林）和英文名查询，集成 PubChem、OPSIN 多层引擎。"
+description: "化合物结构式搜索工具，支持中文和英文查询。输入苯、甲苯、阿司匹林等中文名或英文名，通过 PubChem + OPSIN 引擎返回准确结构式。可安装为手机 App。"
+keywords: "化学结构式搜索, 化合物查询, PubChem, 化学工具, 苯的结构式, 阿司匹林结构式, 化学式, 化学结构查询"
 collection: portfolio_zh
 locale: zh-CN
 classes: wide

@@ -1,6 +1,9 @@
 ---
-title: "下载 · 化学结构式搜索工具"
+title: "下载 — 化合物结构搜索工具"
 permalink: /zh/programs/compound-search-app/thanks/
+excerpt: "感谢您购买化合物结构搜索工具。请输入购买时使用的邮箱查找下载。"
+description: "化合物结构搜索工具下载页面。输入您购买时的邮箱即可查询订单并下载 PWA 安装包。"
+keywords: "化学结构搜索, 化合物查询, 下载, PWA"
 locale: zh-CN
 classes: wide
 ---

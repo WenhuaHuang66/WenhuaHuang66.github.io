@@ -7,11 +7,12 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "The Personal Website of Dr. Wenhua Huang"
+title                    : "Dr. Wenhua Huang — Chemistry, Tools & Science"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below your name in sidebar
 name                     : "Wenhua Huang"
-description              : "Understand and enjoy chemistry"
+description              : "Chemistry professor at Tianjin University. Original articles, chemistry tools, and a compound structure search app. Bilingual (中文 / English)."
+keywords                 : "Wenhua Huang, 黄文华, chemistry, chemistry tools, chemical structure search, PubChem, compound search, 天津大学, 化学, 化学工具"
 url                      : https://wenhuahuang.com # the base hostname & protocol for your site (custom domain hosted on Cloudflare Pages)
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "WenhuaHuang66/WenhuaHuang66.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
