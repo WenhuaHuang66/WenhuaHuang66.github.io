@@ -17,8 +17,13 @@ id = "0ea6cae6f1fe4bdcb02b0802b51ae190"
 
 # 自定义域名（走 Cloudflare CDN，国内访问稳定）
 # 需要在 Cloudflare Dashboard → DNS 添加一条记录指向 Workers
-[route]
+[[routes]]
 pattern = "checkout.wenhuahuang.com/*"
+zone_name = "wenhuahuang.com"
+
+# 主域名 robots.txt → Worker（绕过 Cloudflare Content Signals 注入）
+[[routes]]
+pattern = "wenhuahuang.com/robots.txt"
 zone_name = "wenhuahuang.com"
 
 # PayPal PDT Identity Token（部署时通过 wrangler secret put 写入）

@@ -35,7 +35,10 @@ export default {
         return await handleOrderLookup(url, env, corsHeaders);
       }
       if (path === "/" && request.method === "GET") {
-        return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download", "/api/order-lookup"] }), { headers: corsHeaders });
+        return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download", "/api/order-lookup", "/robots.txt"] }), { headers: corsHeaders });
+      }
+      if (path === "/robots.txt" && request.method === "GET") {
+        return new Response(ROBOTS_TXT, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
       }
       return jsonError("Not found", 404, corsHeaders);
     } catch (err) {
@@ -359,3 +362,50 @@ async function handleOrderLookup(url, env, corsHeaders) {
     headers: corsHeaders,
   });
 }
+
+// ---- robots.txt（覆盖 Cloudflare Content Signals 注入的垃圾）----
+
+const ROBOTS_TXT = `User-agent: *
+Allow: /
+
+# 国内搜索引擎
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# 国际搜索引擎
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# 禁止爬虫
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Perplexity-User
+Disallow: /
+
+Sitemap: https://wenhuahuang.com/sitemap.xml
+`;
