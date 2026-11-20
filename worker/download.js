@@ -40,6 +40,9 @@ export default {
       if (path === "/robots.txt" && request.method === "GET") {
         return new Response(ROBOTS_TXT, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
       }
+      if (path === "/baidu_verify_codeva-5klZIDbrm9.html" && request.method === "GET") {
+        return new Response("b41da193b0afcf776284fb9ebc9a24be", { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
+      }
       return jsonError("Not found", 404, corsHeaders);
     } catch (err) {
       console.error("Worker error:", err);
