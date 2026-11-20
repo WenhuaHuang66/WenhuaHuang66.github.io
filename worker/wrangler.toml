@@ -26,9 +26,14 @@ zone_name = "wenhuahuang.com"
 pattern = "wenhuahuang.com/robots.txt"
 zone_name = "wenhuahuang.com"
 
-# 百度站长验证文件 → Worker（绕过 Cloudflare Pages .html 自动去后缀重定向）
+# 百度站长验证文件
+# Cloudflare Pages 会把 .html 后缀自动去重定向，
+# 所以必须同时匹配 .html 和无后缀两种路径
 [[routes]]
 pattern = "wenhuahuang.com/baidu_verify_codeva-5klZIDbrm9.html"
+zone_name = "wenhuahuang.com"
+[[routes]]
+pattern = "wenhuahuang.com/baidu_verify_codeva-5klZIDbrm9"
 zone_name = "wenhuahuang.com"
 
 # PayPal PDT Identity Token（部署时通过 wrangler secret put 写入）

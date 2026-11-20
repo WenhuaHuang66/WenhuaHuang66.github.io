@@ -40,7 +40,10 @@ export default {
       if (path === "/robots.txt" && request.method === "GET") {
         return new Response(ROBOTS_TXT, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
       }
-      if (path === "/baidu_verify_codeva-5klZIDbrm9.html" && request.method === "GET") {
+      // 百度站长验证文件
+      // Cloudflare Pages 会在 Worker 之前把 .html 重定向到无后缀，
+      // 所以必须同时匹配带和不带 .html 后缀的路径
+      if ((path === "/baidu_verify_codeva-5klZIDbrm9.html" || path === "/baidu_verify_codeva-5klZIDbrm9") && request.method === "GET") {
         return new Response("b41da193b0afcf776284fb9ebc9a24be", { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
       }
       return jsonError("Not found", 404, corsHeaders);
