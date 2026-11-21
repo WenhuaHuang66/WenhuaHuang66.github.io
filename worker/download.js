@@ -5,6 +5,23 @@
 
 const DOWNLOAD_URL_TTL_SECONDS = 3600; // 预签名 URL 有效期 1 小时
 
+// 百度站长友好的极简 HTML —— 边缘直接返回，不依赖任何源服务器
+const BAIDU_FRIENDLY_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="baidu-site-verification" content="codeva-5klZIDbrm9">
+<title>Dr. Wenhua Huang — Chemistry, Tools & Science</title>
+<meta name="description" content="The personal website of Dr. Wenhua Huang, Associate Professor of Chemistry at Tianjin University. Chemistry tools, science articles, and more.">
+<link rel="canonical" href="https://wenhuahuang.com/">
+</head>
+<body>
+<h1>Dr. Wenhua Huang</h1>
+<p>Associate Professor of Chemistry at Tianjin University</p>
+<p>Visit <a href="https://wenhuahuang.com/">wenhuahuang.com</a> for more.</p>
+</body>
+</html>`;
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -34,8 +51,19 @@ export default {
       if (path === "/api/order-lookup" && request.method === "GET") {
         return await handleOrderLookup(url, env, corsHeaders);
       }
+      // 根路径 —— 根据域名区分
       if (path === "/" && request.method === "GET") {
-        return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download", "/api/order-lookup", "/robots.txt"] }), { headers: corsHeaders });
+        // checkout 域名 → Worker 健康检查
+        if (url.hostname === "checkout.wenhuahuang.com") {
+          return new Response(JSON.stringify({ ok: true, service: "compound-search-download", endpoints: ["/checkout", "/webhook", "/download", "/api/order-lookup", "/robots.txt"] }), { headers: corsHeaders });
+        }
+        // wenhuahuang.com 域名 → 极简 HTML（边缘直接返回，防止任何 522）
+        return new Response(BAIDU_FRIENDLY_HTML, {
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=300",
+          },
+        });
       }
       if (path === "/robots.txt" && request.method === "GET") {
         return new Response(ROBOTS_TXT, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
